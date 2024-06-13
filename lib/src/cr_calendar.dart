@@ -89,8 +89,8 @@ final class CrCalendarController extends ChangeNotifier {
   ValueNotifier<bool> get isShowingEvents => _doShowEvents;
 
   /// Add list of events.
-  void addEvents(List<CalendarEventModel> events) {
-    events.addAll(events);
+  void addEvents(List<CalendarEventModel> _events) {
+    events?.addAll(_events);
     _redrawCalendar();
   }
 
@@ -167,6 +167,16 @@ final class CrCalendarController extends ChangeNotifier {
           const Duration(milliseconds: Contract.kDefaultAnimationDurationMs),
       curve: curve ?? Curves.linear,
     );
+  }
+
+  void resetEvents() {
+    events?.clear();
+    _redrawCalendar();
+  }
+
+  void replaceEvents(List<CalendarEventModel> _events) {
+    events?.replaceRange(0, events?.length ?? 0, _events);
+    _redrawCalendar();
   }
 
   void _redrawCalendar() {
@@ -384,7 +394,6 @@ class _CrCalendarState extends State<CrCalendar> {
                 onRangeSelected: (events) {
                   final begin = widget.controller.selectedRange.begin;
                   final end = widget.controller.selectedRange.end;
-
                   if (widget.onRangeSelected != null &&
                       widget.touchMode == TouchMode.rangeSelection) {
                     widget.onRangeSelected?.call(events, begin, end);
