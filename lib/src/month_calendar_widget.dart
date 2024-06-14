@@ -164,11 +164,12 @@ class MonthCalendarWidgetState extends State<MonthCalendarWidget> {
       final day = _getDisplayDay(index);
       final column = index % Contract.kWeekDaysCount;
       final tappedDate = Jiffy.parseFromJiffy(widget.begin).add(days: index);
+      final isEnabled = widget.selectableDayPredicate == null ||
+          widget.selectableDayPredicate!(tappedDate.dateTime);
 
       return GestureDetector(
         onTap: () {
-          if (widget.selectableDayPredicate != null &&
-              !widget.selectableDayPredicate!(tappedDate.dateTime)) {
+          if (!isEnabled) {
             return;
           }
 
@@ -195,6 +196,7 @@ class MonthCalendarWidgetState extends State<MonthCalendarWidget> {
                     isFirstInRange: _isDateFirstRange(index),
                     isLastInRange: _isDateLastRange(index),
                     date: tappedDate.dateTime,
+                    enabled: isEnabled,
                   ),
                 )
               : DayItem(
