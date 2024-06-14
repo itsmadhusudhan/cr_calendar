@@ -165,7 +165,13 @@ class MonthCalendarWidgetState extends State<MonthCalendarWidget> {
       final column = index % Contract.kWeekDaysCount;
       final tappedDate = Jiffy.parseFromJiffy(widget.begin).add(days: index);
       final isEnabled = widget.selectableDayPredicate == null ||
-          widget.selectableDayPredicate!(tappedDate.dateTime);
+          widget.selectableDayPredicate!(
+            DateTime(
+              tappedDate.dateTime.year,
+              tappedDate.dateTime.month,
+              tappedDate.dateTime.day,
+            ),
+          );
 
       return GestureDetector(
         onTap: () {
