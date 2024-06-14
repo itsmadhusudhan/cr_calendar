@@ -228,6 +228,7 @@ class CrCalendar extends StatefulWidget {
     this.maxDate,
     this.weeksToShow,
     this.localizedWeekDaysBuilder,
+    this.selectableDayPredicate,
     super.key,
   })  : assert(maxEventLines <= 6, 'maxEventLines should be less then 6'),
         assert(minDate == null || maxDate == null || minDate.isBefore(maxDate),
@@ -319,6 +320,7 @@ class CrCalendar extends StatefulWidget {
   /// When this parameter is not null, [firstDayOfWeek] and [weekDaysBuilder]
   /// parameters are ignored.
   final LocalizedWeekDaysBuilder? localizedWeekDaysBuilder;
+  final SelectableDayPredicate? selectableDayPredicate;
 
   @override
   _CrCalendarState createState() => _CrCalendarState();
@@ -381,6 +383,7 @@ class _CrCalendarState extends State<CrCalendar> {
               color: widget.backgroundColor,
               child: MonthItem(
                 eventTopPadding: widget.eventsTopPadding,
+                selectableDayPredicate: widget.selectableDayPredicate,
                 displayMonth: month,
                 controller: widget.controller,
                 eventBuilder: widget.eventBuilder,

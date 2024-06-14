@@ -30,6 +30,7 @@ class MonthItem extends StatefulWidget {
     this.firstWeekDay = WeekDay.sunday,
     this.weeksToShow,
     this.localizedWeekDaysBuilder,
+    this.selectableDayPredicate,
     super.key,
   });
 
@@ -49,6 +50,7 @@ class MonthItem extends StatefulWidget {
   final WeekDay firstWeekDay;
   final List<int>? weeksToShow;
   final LocalizedWeekDaysBuilder? localizedWeekDaysBuilder;
+  final SelectableDayPredicate? selectableDayPredicate;
 
   @override
   MonthItemState createState() => MonthItemState();
@@ -216,6 +218,7 @@ class MonthItemState extends State<MonthItem> {
       onRangeSelected: widget.onRangeSelected,
       touchMode: widget.touchMode,
       weeksToShow: widget.weeksToShow ?? Contract.kWeeksToShowInMonth,
+      selectableDayPredicate: widget.selectableDayPredicate,
     );
   }
 

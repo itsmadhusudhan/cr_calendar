@@ -44,6 +44,7 @@ final class DatePickerProperties {
     this.forceSixWeek = false,
     this.firstWeekDay = WeekDay.sunday,
     this.landscapeDaysResizeMode = LandscapeDaysResizeMode.adaptive,
+    this.selectableDayPredicate,
   });
 
   /// Background color for date picker dialog and year selection widget.
@@ -112,6 +113,9 @@ final class DatePickerProperties {
 
   /// Days resize mode.
   final LandscapeDaysResizeMode landscapeDaysResizeMode;
+
+  /// Signature for predicating dates for enabled date selections.
+  final SelectableDayPredicate? selectableDayPredicate;
 }
 
 /// To share [isDialogMode] through the calendar.
@@ -410,6 +414,7 @@ class _CrDatePickerDialogState extends State<CrDatePickerDialog> {
         _rangeEnd = day;
         setState(() {});
       },
+      selectableDayPredicate: _properties.selectableDayPredicate,
     );
   }
 

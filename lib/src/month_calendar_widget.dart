@@ -30,6 +30,7 @@ class MonthCalendarWidget extends StatefulWidget {
     this.currentDay,
     this.dayItemBuilder,
     this.onDayTap,
+    this.selectableDayPredicate,
     super.key,
   });
 
@@ -49,6 +50,7 @@ class MonthCalendarWidget extends StatefulWidget {
   final Function(List<CalendarEventModel>)? onRangeSelected;
   final TouchMode touchMode;
   final List<int> weeksToShow;
+  final SelectableDayPredicate? selectableDayPredicate;
 
   @override
   MonthCalendarWidgetState createState() => MonthCalendarWidgetState();
@@ -165,6 +167,11 @@ class MonthCalendarWidgetState extends State<MonthCalendarWidget> {
 
       return GestureDetector(
         onTap: () {
+          if (widget.selectableDayPredicate != null &&
+              !widget.selectableDayPredicate!(tappedDate.dateTime)) {
+            return;
+          }
+
           widget.onDayTap?.call(tappedDate);
           if (widget.touchMode == TouchMode.singleTap) {
             _performDaySelecting(tappedDate);
