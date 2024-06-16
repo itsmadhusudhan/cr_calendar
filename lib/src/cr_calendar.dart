@@ -45,7 +45,8 @@ final class CrCalendarController extends ChangeNotifier {
   CrCalendarController({
     this.onSwipe,
     this.events,
-  });
+    this.initialRange,
+  }) : selectedRange = initialRange ?? DateRangeModel();
 
   /// All calendar event currently stored by controller.
   final List<CalendarEventModel>? events;
@@ -65,7 +66,8 @@ final class CrCalendarController extends ChangeNotifier {
   List<CalendarEventModel>? selectedEvents;
 
   /// See [DateRangeModel].
-  DateRangeModel selectedRange = DateRangeModel();
+  DateRangeModel selectedRange;
+  final DateRangeModel? initialRange;
 
   /// Current calendar view page.
   int page = Contract.kDefaultInitialPage;
@@ -229,6 +231,7 @@ class CrCalendar extends StatefulWidget {
     this.weeksToShow,
     this.localizedWeekDaysBuilder,
     this.selectableDayPredicate,
+    this.initialDateRange,
     super.key,
   })  : assert(maxEventLines <= 6, 'maxEventLines should be less then 6'),
         assert(minDate == null || maxDate == null || minDate.isBefore(maxDate),
@@ -321,6 +324,7 @@ class CrCalendar extends StatefulWidget {
   /// parameters are ignored.
   final LocalizedWeekDaysBuilder? localizedWeekDaysBuilder;
   final SelectableDayPredicate? selectableDayPredicate;
+  final DateTimeRange? initialDateRange;
 
   @override
   _CrCalendarState createState() => _CrCalendarState();
@@ -338,7 +342,7 @@ class _CrCalendarState extends State<CrCalendar> {
   @override
   void initState() {
     super.initState();
-    final date = widget.initialDate;
+    final date = widget.initialDateRange?.start ?? widget.initialDate;
     widget.controller.date = date;
     widget.controller.addListener(_redraw);
     calculateBoundaries();
@@ -415,6 +419,7 @@ class _CrCalendarState extends State<CrCalendar> {
                 weeksToShow: widget.weeksToShow,
                 firstWeekDay: _firstWeekDay,
                 localizedWeekDaysBuilder: widget.localizedWeekDaysBuilder,
+                initialDateRange: widget.initialDateRange,
               ),
             );
           },

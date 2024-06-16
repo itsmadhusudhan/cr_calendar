@@ -1,5 +1,5 @@
 /// Date range model for date picker mode.
-final class DateRangeModel {
+class DateRangeModel {
   DateRangeModel({
     this.begin,
     this.end,

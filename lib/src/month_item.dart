@@ -31,6 +31,7 @@ class MonthItem extends StatefulWidget {
     this.weeksToShow,
     this.localizedWeekDaysBuilder,
     this.selectableDayPredicate,
+    this.initialDateRange,
     super.key,
   });
 
@@ -51,6 +52,7 @@ class MonthItem extends StatefulWidget {
   final List<int>? weeksToShow;
   final LocalizedWeekDaysBuilder? localizedWeekDaysBuilder;
   final SelectableDayPredicate? selectableDayPredicate;
+  final DateTimeRange? initialDateRange;
 
   @override
   MonthItemState createState() => MonthItemState();
