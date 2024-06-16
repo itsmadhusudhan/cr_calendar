@@ -45,6 +45,7 @@ final class DatePickerProperties {
     this.firstWeekDay = WeekDay.sunday,
     this.landscapeDaysResizeMode = LandscapeDaysResizeMode.adaptive,
     this.selectableDayPredicate,
+    this.initialDateTimeRange,
   });
 
   /// Background color for date picker dialog and year selection widget.
@@ -116,6 +117,8 @@ final class DatePickerProperties {
 
   /// Signature for predicating dates for enabled date selections.
   final SelectableDayPredicate? selectableDayPredicate;
+
+  final DateTimeRange? initialDateTimeRange;
 }
 
 /// To share [isDialogMode] through the calendar.
@@ -393,6 +396,8 @@ class _CrDatePickerDialogState extends State<CrDatePickerDialog> {
   void _initPicker() {
     _calendarController = CrCalendarController(onSwipe: _onCalendarSwipe);
     _date = _properties.initialPickerDate ?? DateTime.now();
+    _rangeBegin = _properties.initialDateTimeRange?.start;
+    _rangeEnd = _properties.initialDateTimeRange?.end;
     _calendarWidget = CrCalendar(
       firstDayOfWeek: _properties.firstWeekDay,
       initialDate: _properties.initialPickerDate ?? DateTime.now(),
